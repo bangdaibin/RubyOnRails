@@ -1,0 +1,19 @@
+<% provide(:title, 'All publisher') %>
+<h1>All Publisher</h1>
+
+<%= form_tag(publishers_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Publisher" %>
+  <%= submit_tag "Search" %>
+  <% end %>
+ <%= will_paginate %>
+<ul class="publisher">
+      <%= render @publishers %>
+</ul>
+
+<%= will_paginate %>
+<% if logged_in? %>
+	<% if current_user.admin? %>	
+		<br><%= link_to "Add Publisher", new_publisher_path %></br>
+		<br><%= link_to "Export to XLS", publishers_path(format: "xls") %></br>
+<% end %>
+<% end %>

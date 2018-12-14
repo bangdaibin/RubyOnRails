@@ -1,0 +1,11 @@
+<li>
+
+  <%= link_to publisher.publisher_name, publisher %>
+  <% if current_user.admin? %>
+      | <%= link_to "delete", publisher, method: :delete,
+                    data: { confirm: "You sure?" } %>
+        |<%= link_to "edit", edit_publisher_path(publisher)%>
+
+  <% end %>
+
+</li>

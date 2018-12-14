@@ -1,0 +1,19 @@
+<% provide(:title, 'All category') %>
+<h1>All Category</h1>
+
+<%= form_tag(categories_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Category" %>
+  <%= submit_tag "Search" %>
+  <% end %>
+  <%= will_paginate %>
+<ul class="category">
+      <%= render @categories %>
+</ul>
+
+<%= will_paginate %>
+<% if logged_in? %>
+	<% if current_user.admin? %>	
+		<br><%= link_to "Add Category", new_category_path %></br>
+		<br><%= link_to "Export to XLS", categories_path(format: "xls") %></br>
+<% end %>
+<% end %>

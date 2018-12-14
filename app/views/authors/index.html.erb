@@ -1,0 +1,18 @@
+<% provide(:title, 'All author') %>
+<h1>All Author</h1>
+<%= form_tag(authors_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Author" %>
+  <%= submit_tag "Search" %>
+<% end %>
+<%= will_paginate %>
+
+<ul class="author">
+      <%= render @authors %>
+</ul>
+<%= will_paginate %>
+<% if logged_in? %>
+	<% if current_user.admin? %>	
+		<br><%= link_to "Add Author", new_author_path %></br>
+		<br><%= link_to "Export to XLS", authors_path(format: "xls") %></br>
+<% end %>
+<% end %>

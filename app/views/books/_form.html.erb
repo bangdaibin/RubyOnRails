@@ -1,0 +1,22 @@
+<%= form_for(@book) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>    
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+    <%= f.label :author %>
+    <%=	f.fields_for :author_attributes do |author| %>
+    <%= author.text_field :author_name, class: 'form-control' %>
+    <% end %>
+    <%=	f.fields_for :category_attributes do |category| %>
+    <%= category.collection_select :category_name, Category.all, :category_name, :category_name %>
+    <% end %>
+    <%= f.label :publisher %>
+    <%=	f.fields_for :publisher_attributes do |publisher| %>
+    <%= publisher.text_field :publisher_name,class: 'form-control' %>
+    <% end %>
+
+    <%= f.file_field :book_img,class: 'form-control' %>
+    <%= f.submit "submit", class: "btn btn-primary" %>
+
+<% end %>

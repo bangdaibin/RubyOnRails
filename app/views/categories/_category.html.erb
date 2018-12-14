@@ -1,0 +1,12 @@
+<li>
+  <%if logged_in?%>
+  <%= link_to category.category_name, category %>
+  <% if current_user.admin? %>
+      | <%= link_to "delete", category, method: :delete,
+                    data: { confirm: "You sure?" } %>
+        |<%= link_to "edit", edit_category_path(category)%>
+
+  <% end %>
+  <% end %>
+
+</li>

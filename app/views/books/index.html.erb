@@ -1,0 +1,37 @@
+<% provide(:title, 'All Book') %>
+<h1>All Book</h1>
+
+<%= form_tag books_path, method: :get do %>
+  <%= text_field_tag :search %>
+  <%= submit_tag "Search", name: nil %>
+<% end %>
+
+<% if @books.count == 0 %>
+
+	<h1>There are no books</h1>
+
+<% else %>	
+<div class="container">
+	<div class="row">
+
+		<% @books.each do |book| %>
+
+			<div class="col-md-3">
+				<a href="/books/<%= book.id %>">
+					<%= image_tag book.book_img.url(:medium), class: "book" %>
+					<p><%= book.title %></p>
+				</a>
+				
+			</div>	
+
+		<% end %>
+
+	</div>
+	
+<% end %>	
+<% if logged_in? %>
+	<% if current_user.admin? %>	
+		<br><%= link_to "Add Book", new_book_path %></br>
+		<br><%= link_to "Export to XLS", books_path(format: "xls") %></br>
+<% end %>
+<% end %>
